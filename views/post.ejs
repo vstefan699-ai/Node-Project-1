@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layouts/header') %>
+  <body>
+    <%- include('layouts/navbar') %>
+
+    <h1><%= post.title %></h1>
+    <% if (post.image) { %>
+        <img src="<%= post.image %>" alt="Post image" style="width: 100%;">
+    <% } %>
+        <small>Posted on <%= post.createdAt.toDateString() %></small>
+    <% if (post.user) { %>
+        <small> by <%= post.user.username %></small>
+    <% } %>
+    <hr />
+    <div><%- post.body %></div>
+    <br />
+    <a href="/">← Back to Home</a>
+
+    <% if (user && post.user && user._id.toString() === post.user._id.toString()) { %>
+    <a href="/posts/<%= post._id %>/edit">Edit Post</a>
+
+    <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete Post</button>
+    </form>
+    <% } %>
+
+    <%- include('layouts/footer') %> <%- include('layouts/scripts') %>
+  </body>
+</html>

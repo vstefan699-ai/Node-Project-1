@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('layouts/header') %>
+<body>
+    <%- include('layouts/navbar') %>
+
+    <h1>Login</h1>
+
+    <% if (error_msg.length > 0) { %>
+        <p style="color: red; border: 1px solid red; padding: 10px;"><%= error_msg %></p>
+    <% } %>
+    <% if (success_msg.length > 0) { %>
+        <p style="color: green; border: 1px solid green; padding: 10px;"><%= success_msg %></p>
+    <% } %>
+
+    <form action="/users/login" method="POST">
+        <div>
+            <label>Email</label><br>
+            <input type="email" name="email" placeholder="Enter email...">
+        </div>
+        <br>
+        <div>
+            <label>Password</label><br>
+            <input type="password" name="password" placeholder="Enter password...">
+        </div>
+        <br>
+        <button type="submit">Login</button>
+    </form>
+
+    <p>Don't have an account? <a href="/users/register">Register here</a></p>
+
+    <%- include('layouts/footer') %>
+    <%- include('layouts/scripts') %>
+</body>
+</html>

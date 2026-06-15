@@ -1,0 +1,14 @@
+<nav>
+    <a href="/">Home</a> |
+    <a href="/about">About</a> |
+    <a href="/contact">Contact</a> |
+    <% if (typeof user !== 'undefined' && user) { %>
+        Welcome, <strong><%= user.username %></strong> |
+        <a href="/posts/new">New Post</a> |
+        <a href="/users/logout">Logout</a>
+    <% } else { %>
+        <a href="/users/register">Register</a> |
+        <a href="/users/login">Login</a>
+    <% } %>
+</nav>
+<hr>

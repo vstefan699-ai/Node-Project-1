@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('layouts/header') %>
+<body>
+    <%- include('layouts/navbar') %>
+
+    <% if (success_msg.length > 0) { %>
+        <p style="color: green; border: 1px solid green; padding: 10px;"><%= success_msg %></p>
+    <% } %>
+    <% if (error_msg.length > 0) { %>
+        <p style="color: red; border: 1px solid red; padding: 10px;"><%= error_msg %></p>
+    <% } %>
+
+    <h1><%= blogTitle %></h1>
+    <hr>
+
+    <% if (posts.length > 0) { %>
+        <% posts.forEach(post => { %>
+            <div>
+                <h2><a href="/posts/<%= post._id %>"><%= post.title %></a></h2>
+                <% if (post.image) { %>
+                    <img src="<%= post.image %>" alt="Post image" style="width: 300px;">
+                <% } %>
+                <small>Posted on <%= post.createdAt.toDateString() %></small>
+                <div><%- post.body %></div>
+                <hr>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <p>No posts yet. <a href="/posts/new">Create one!</a></p>
+    <% } %>
+
+    <%- include('layouts/footer') %>
+    <%- include('layouts/scripts') %>
+</body>
+</html>

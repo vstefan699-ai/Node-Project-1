@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('layouts/header') %>
+<body>
+    <%- include('layouts/navbar') %>
+
+    <h1>Edit Post</h1>
+
+    <form action="/posts/<%= post._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+        <div>
+            <label>Title</label><br>
+            <input type="text" name="title" value="<%= post.title %>">
+        </div>
+        <br>
+        <div>
+            <label>Current Image</label><br>
+            <% if (post.image) { %>
+                <img src="<%= post.image %>" style="width: 200px;"><br>
+            <% } else { %>
+                <p>No image uploaded</p>
+            <% } %>
+            <label>Change Image</label><br>
+            <input type="file" name="image" accept="image/*">
+        </div>
+        <br>
+        <div>
+            <label>Body</label><br>
+            <div id="editor" style="height: 200px;"></div>
+            <input type="hidden" name="body" id="body">
+        </div>
+        <br>
+        <button type="submit" onclick="submitForm()">Update Post</button>
+    </form>
+
+    <!-- Quill CSS -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <!-- Quill JS -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+
+        // Pre-fill editor with existing content
+        quill.root.innerHTML = `<%- post.body %>`;
+
+        function submitForm() {
+            document.getElementById('body').value = quill.root.innerHTML;
+        }
+    </script>
+
+    <%- include('layouts/footer') %>
+    <%- include('layouts/scripts') %>
+</body>
+</html>

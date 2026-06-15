@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('layouts/header') %>
+<body>
+    <%- include('layouts/navbar') %>
+
+    <h1>Create an Account</h1>
+
+    <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+    <div style="color: red; border: 1px solid red; padding: 10px;">
+        <ul>
+            <% errors.forEach(error => { %>
+                <li><%= error.msg %></li>
+            <% }) %>
+        </ul>
+    </div>
+    <% } %>
+    <% if (error_msg.length > 0) { %>
+        <p style="color: red; border: 1px solid red; padding: 10px;"><%= error_msg %></p>
+    <% } %>
+
+    <form action="/users/register" method="POST">
+        <div>
+            <label>Username</label><br>
+            <input type="text" name="username" placeholder="Enter username...">
+        </div>
+        <br>
+        <div>
+            <label>Email</label><br>
+            <input type="email" name="email" placeholder="Enter email...">
+        </div>
+        <br>
+        <div>
+            <label>Password</label><br>
+            <input type="password" name="password" placeholder="Enter password...">
+        </div>
+        <br>
+        <div>
+            <label>Confirm Password</label><br>
+            <input type="password" name="password2" placeholder="Confirm password...">
+        </div>
+        <br>
+        <button type="submit">Register</button>
+    </form>
+
+    <p>Already have an account? <a href="/users/login">Login here</a></p>
+
+    <%- include('layouts/footer') %>
+    <%- include('layouts/scripts') %>
+</body>
+</html>
