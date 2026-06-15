@@ -4,31 +4,61 @@
 <body>
     <%- include('layouts/navbar') %>
 
-    <% if (success_msg.length > 0) { %>
-        <p style="color: green; border: 1px solid green; padding: 10px;"><%= success_msg %></p>
-    <% } %>
-    <% if (error_msg.length > 0) { %>
-        <p style="color: red; border: 1px solid red; padding: 10px;"><%= error_msg %></p>
-    <% } %>
-
-    <h1><%= blogTitle %></h1>
-    <hr>
-
-    <% if (posts.length > 0) { %>
-        <% posts.forEach(post => { %>
-            <div>
-                <h2><a href="/posts/<%= post._id %>"><%= post.title %></a></h2>
-                <% if (post.image) { %>
-                    <img src="<%= post.image %>" alt="Post image" style="width: 300px;">
-                <% } %>
-                <small>Posted on <%= post.createdAt.toDateString() %></small>
-                <div><%- post.body %></div>
-                <hr>
+    <!-- Page Header-->
+    <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>My Blog</h1>
+                        <span class="subheading">A place to share my thoughts</span>
+                    </div>
+                </div>
             </div>
-        <% }) %>
-    <% } else { %>
-        <p>No posts yet. <a href="/posts/new">Create one!</a></p>
-    <% } %>
+        </div>
+    </header>
+
+    <!-- Flash Messages -->
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <% if (success_msg.length > 0) { %>
+                    <div class="alert alert-success mt-3"><%= success_msg %></div>
+                <% } %>
+                <% if (error_msg.length > 0) { %>
+                    <div class="alert alert-danger mt-3"><%= error_msg %></div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content-->
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <% if (posts.length > 0) { %>
+                    <% posts.forEach(post => { %>
+                        <div class="post-preview">
+                            <a href="/posts/<%= post._id %>">
+                                <% if (post.image) { %>
+                                    <img src="<%= post.image %>" class="img-fluid mb-2" alt="Post image">
+                                <% } %>
+                                <h2 class="post-title"><%= post.title %></h2>
+                            </a>
+                            <p class="post-meta">
+                                Posted by <strong><%= post.user ? post.user.username : 'Unknown' %></strong>
+                                on <%= post.createdAt.toDateString() %>
+                            </p>
+                            <div><%- post.body.substring(0, 150) %>...</div>
+                        </div>
+                        <hr class="my-4" />
+                    <% }) %>
+                <% } else { %>
+                    <p>No posts yet. <a href="/posts/new">Create one!</a></p>
+                <% } %>
+            </div>
+        </div>
+    </div>
 
     <%- include('layouts/footer') %>
     <%- include('layouts/scripts') %>

@@ -4,30 +4,47 @@
 <body>
     <%- include('layouts/navbar') %>
 
-    <h1>Login</h1>
-
-    <% if (error_msg.length > 0) { %>
-        <p style="color: red; border: 1px solid red; padding: 10px;"><%= error_msg %></p>
-    <% } %>
-    <% if (success_msg.length > 0) { %>
-        <p style="color: green; border: 1px solid green; padding: 10px;"><%= success_msg %></p>
-    <% } %>
-
-    <form action="/users/login" method="POST">
-        <div>
-            <label>Email</label><br>
-            <input type="email" name="email" placeholder="Enter email...">
+    <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="page-heading">
+                        <h1>Login</h1>
+                        <span class="subheading">Welcome back!</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <br>
-        <div>
-            <label>Password</label><br>
-            <input type="password" name="password" placeholder="Enter password...">
-        </div>
-        <br>
-        <button type="submit">Login</button>
-    </form>
+    </header>
 
-    <p>Don't have an account? <a href="/users/register">Register here</a></p>
+    <main class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <% if (error_msg.length > 0) { %>
+                        <div class="alert alert-danger"><%= error_msg %></div>
+                    <% } %>
+                    <% if (success_msg.length > 0) { %>
+                        <div class="alert alert-success"><%= success_msg %></div>
+                    <% } %>
+
+                    <form action="/users/login" method="POST">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" type="email" name="email" placeholder="Email">
+                            <label>Email address</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input class="form-control" type="password" name="password" placeholder="Password">
+                            <label>Password</label>
+                        </div>
+                        <button class="btn btn-primary text-uppercase" type="submit">Login</button>
+                    </form>
+                    <br>
+                    <p>Don't have an account? <a href="/users/register">Register here</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <%- include('layouts/footer') %>
     <%- include('layouts/scripts') %>

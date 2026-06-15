@@ -4,48 +4,48 @@
 <body>
     <%- include('layouts/navbar') %>
 
-    <h1>Create New Post</h1>
-
-    <% if (success_msg.length > 0) { %>
-        <p style="color: green; border: 1px solid green; padding: 10px;"><%= success_msg %></p>
-    <% } %>
-    <% if (error_msg.length > 0) { %>
-        <p style="color: red; border: 1px solid red; padding: 10px;"><%= error_msg %></p>
-    <% } %>
-
-    <form action="/posts" method="POST" enctype="multipart/form-data">
-        <div>
-            <label>Title</label><br>
-            <input type="text" name="title" placeholder="Enter title...">
+    <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="page-heading">
+                        <h1>New Post</h1>
+                        <span class="subheading">Share your thoughts!</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <br>
-        <div>
-            <label>Image</label><br>
-            <input type="file" name="image" accept="image/*">
-        </div>
-        <br>
-        <div>
-            <label>Body</label><br>
-            <!-- Quill editor will appear here -->
-            <div id="editor" style="height: 200px;"></div>
-            <!-- Hidden input to store the content -->
-            <input type="hidden" name="body" id="body">
-        </div>
-        <br>
-        <button type="submit" onclick="submitForm()">Publish Post</button>
-    </form>
+    </header>
 
-    <!-- Quill CSS -->
+    <main class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <form action="/posts" method="POST" enctype="multipart/form-data">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" type="text" name="title" placeholder="Title">
+                            <label>Title</label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Image</label>
+                            <input class="form-control" type="file" name="image" accept="image/*">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Body</label>
+                            <div id="editor" style="height: 300px;"></div>
+                            <input type="hidden" name="body" id="body">
+                        </div>
+                        <button class="btn btn-primary text-uppercase" type="submit" onclick="submitForm()">Publish Post</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <!-- Quill JS -->
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
-        // Initialize Quill editor
-        var quill = new Quill('#editor', {
-            theme: 'snow'
-        });
-
-        // When form is submitted, copy Quill content to hidden input
+        var quill = new Quill('#editor', { theme: 'snow' });
         function submitForm() {
             document.getElementById('body').value = quill.root.innerHTML;
         }
